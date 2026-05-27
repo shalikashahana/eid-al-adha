@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid al-Adha Mubarak | Cinematic Spiritual Experience</title>
+    <style>
+        :root {
+            --gold: #d4a84b;
+            --gold-light: #f0d78c;
+            --gold-dark: #b8943a;
+            --bg-deep: #0a0a12;
+            --bg-night: #0d1117;
+            --emerald: #50c878;
+            --moonlight: #c8d6e5;
+            --warm-white: #faf3e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Georgia', 'Times New Roman', 'Noto Naskh Arabic', serif;
+            background: var(--bg-deep);
+            cursor: default;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        /* ============ MAIN CONTAINER ============ */
+        .main-container {
+            position: fixed;
+            inset: 0;
+            perspective: 1200px;
+            overflow: hidden;
+        }
+
+        /* ============ CANVAS LAYERS ============ */
+        #starCanvas,
+        #particleCanvas,
+        #fireworkCanvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        #starCanvas {
+            z-index: 0;
+        }
+        #particleCanvas {
+            z-index: 3;
+        }
+        #fireworkCanvas {
+            z-index: 8;
+        }
+
+        /* ============ PAGE 1 - GOAT INTRO ============ */
+        .page-1 {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 1s cubic-bezier(0.25, 0.1, 0.1, 1), opacity 0.8s ease;
+            transform: scale(1);
+            opacity: 1;
+        }
+        .page-1.transitioning-out {
+            transform: scale(3.5);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .page-1.hidden {
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Crescent Moon */
+        .crescent-moon {
+            position: absolute;
+            top: 8%;
+            right: 12%;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: transparent;
+            box-shadow: 18px -14px 0 0 #f5e6c8;
+            filter: blur(0.5px);
+            animation: moonGlow 4s ease-in-out infinite;
+            z-index: 1;
+        }
+        .crescent-moon::after {
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: -25px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(245, 230, 200, 0.35) 0%, transparent 70%);
+            animation: moonAura 4s ease-in-out infinite;
+        }
+        @keyframes moonGlow {
+            0%,
+            100% {
+                box-shadow: 18px -14px 0 0 #f5e6c8;
+            }
+            50% {
+                box-shadow: 18px -14px 0 0 #fdf2d9;
+            }
+        }
+        @keyframes moonAura {
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.15);
+            }
+        }
+
+        /* Mosque Silhouette */
+        .mosque-silhouette {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 18%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .mosque-silhouette svg {
+            width: 100%;
+            height: 100%;
+            opacity: 0.25;
+            filter: blur(1px);
+        }
+
+        /* Floating Clouds */
+        .cloud {
+            position: absolute;
+            background: rgba(200, 210, 225, 0.08);
+            border-radius: 50%;
+            filter: blur(30px);
+            pointer-events: none;
+            z-index: 0;
+            animation: cloudDrift linear infinite;
+        }
+        .cloud:nth-child(1) {
+            width: 300px;
+            height: 80px;
+            top: 20%;
+            left: -10%;
+            animation-duration: 45s;
+        }
+        .cloud:nth-child(2) {
+            width: 250px;
+            height: 60px;
+            top: 35%;
+            left: 60%;
+            animation-duration: 55s;
+            animation-delay: -15s;
+        }
+        .cloud:nth-child(3) {
+            width: 350px;
+            height: 90px;
+            top: 55%;
+            left: 30%;
+            animation-duration: 50s;
+            animation-delay: -25s;
+        }
+        @keyframes cloudDrift {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(130vw);
+            }
+        }
+
+        /* GOAT BUTTON */
+        .goat-button {
+            position: relative;
+            width: 150px;
+            height: 160px;
+            cursor: pointer;
+            z-index: 5;
+            background: transparent;
+            border: none;
+            outline: none;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: goatBreathe 3.5s ease-in-out infinite;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .goat-button:hover {
+            transform: scale(1.12) translateY(-8px);
+            animation: goatBreatheHover 2.5s ease-in-out infinite;
+        }
+        .goat-button:active {
+            transform: scale(0.95);
+        }
+        @keyframes goatBreathe {
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+            30% {
+                transform: translateY(-4px) scale(1.03);
+            }
+            60% {
+                transform: translateY(1px) scale(0.98);
+            }
+        }
+        @keyframes goatBreatheHover {
+            0%,
+            100% {
+                transform: translateY(-6px) scale(1.12);
+            }
+            30% {
+                transform: translateY(-10px) scale(1.15);
+            }
+            60% {
+                transform: translateY(-3px) scale(1.1);
+            }
+        }
+
+        /* Goat SVG */
+        .goat-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 25px rgba(212, 168, 75, 0.4));
+        }
+        .goat-aura {
+            position: absolute;
+            inset: -25px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 168, 75, 0.25) 0%, transparent 70%);
+            pointer-events: none;
+            animation: auraPulse 2s ease-in-out infinite;
+            z-index: -1;
+        }
+        @keyframes auraPulse {
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+        .goat-shadow {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.5);
+            filter: blur(12px);
+            pointer-events: none;
+            animation: shadowPulse 3.5s ease-in-out infinite;
+        }
+        @keyframes shadowPulse {
+            0%,
+            100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 0.6;
+            }
+            30% {
+                transform: translateX(-50%) scale(0.85);
+                opacity: 0.45;
+            }
+            60% {
+                transform: translateX(-50%) scale(1.05);
+                opacity: 0.7;
+            }
+        }
+
+        /* Sparkle burst on click */
+        .sparkle-burst {
+            position: absolute;
+            pointer-events: none;
+            z-index: 10;
+            animation: sparkleFly 0.8s ease-out forwards;
+        }
+        @keyframes sparkleFly {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--sx), var(--sy)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Title text */
+        .intro-title {
+            position: absolute;
+            bottom: 16%;
+            text-align: center;
+            z-index: 4;
+            pointer-events: none;
+            color: var(--warm-white);
+            font-size: 1.4rem;
+            letter-spacing: 0.15em;
+            opacity: 0.8;
+            text-shadow: 0 0 30px rgba(212, 168, 75, 0.5);
+            animation: titleFloat 3s ease-in-out infinite;
+        }
+        @keyframes titleFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.75;
+            }
+            50% {
+                transform: translateY(-6px);
+                opacity: 0.95;
+            }
+        }
+
+        /* ============ PAGE 2 - KAABA SCENE ============ */
+        .page-2 {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.2s ease;
+        }
+        .page-2.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .page-2.darken {
+            filter: brightness(0.7);
+            transition: filter 1.5s ease;
+        }
+
+        /* Kaaba Container */
+        .kaaba-scene {
+            position: relative;
+            perspective: 900px;
+            perspective-origin: 50% 45%;
+            width: 320px;
+            height: 420px;
+            z-index: 4;
+            animation: cameraDrift 12s ease-in-out infinite;
+        }
+        @keyframes cameraDrift {
+            0%,
+            100% {
+                perspective-origin: 50% 45%;
+            }
+            25% {
+                perspective-origin: 48% 44%;
+            }
+            50% {
+                perspective-origin: 52% 46%;
+            }
+            75% {
+                perspective-origin: 49% 45.5%;
+            }
+        }
+
+        .kaaba-cube {
+            position: absolute;
+            width: 200px;
+            height: 280px;
+            top: 50%;
+            left: 50%;
+            transform-style: preserve-3d;
+            transform: translate(-50%, -55%) rotateY(-18deg) rotateX(3deg);
+            animation: kaabaFloat 6s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.6s ease;
+        }
+        .kaaba-cube:hover {
+            transform: translate(-50%, -55%) rotateY(-16deg) rotateX(2deg) scale(1.03);
+        }
+        @keyframes kaabaFloat {
+            0%,
+            100% {
+                transform: translate(-50%, -55%) rotateY(-18deg) rotateX(3deg);
+            }
+            30% {
+                transform: translate(-50%, -56%) rotateY(-17.5deg) rotateX(3.3deg);
+            }
+            60% {
+                transform: translate(-50%, -54.5%) rotateY(-18.3deg) rotateX(2.7deg);
+            }
+        }
+
+        /* Kaaba Faces */
+        .kaaba-face {
+            position: absolute;
+            backface-visibility: hidden;
+        }
+        .kaaba-face.front {
+            width: 200px;
+            height: 280px;
+            background: linear-gradient(180deg, #0d0d0d 0%, #111111 8%, #0a0a0a 30%, #0f0f0f 55%, #0b0b0b 78%, #111111 100%);
+            transform: translateZ(100px);
+            border-radius: 2px;
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.7), 0 0 2px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+        }
+        .kaaba-face.front::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255, 255, 255, 0.015) 3px, rgba(255, 255, 255, 0.015) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(255, 255, 255, 0.01) 8px, rgba(255, 255, 255, 0.01) 9px);
+            pointer-events: none;
+        }
+        /* Gold Band Front */
+        .kaaba-face.front .gold-band {
+            position: absolute;
+            top: 35px;
+            left: -2px;
+            right: -2px;
+            height: 28px;
+            background: linear-gradient(180deg, #8b6914 0%, #c9a84c 20%, #f0d78c 40%, #d4a84b 50%, #f0d78c 60%, #c9a84c 80%, #8b6914 100%);
+            box-shadow: 0 0 18px rgba(212, 168, 75, 0.6), 0 0 40px rgba(212, 168, 75, 0.25);
+            border-radius: 1px;
+            z-index: 2;
+        }
+        .kaaba-face.front .gold-band::after {
+            content: '';
+            position: absolute;
+            inset: 3px 6px;
+            background: repeating-linear-gradient(90deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(139, 105, 20, 0.5) 10px,
+                    rgba(139, 105, 20, 0.5) 11px,
+                    transparent 11px,
+                    transparent 18px,
+                    rgba(139, 105, 20, 0.35) 18px,
+                    rgba(139, 105, 20, 0.35) 19px);
+            border-radius: 1px;
+            pointer-events: none;
+        }
+        /* Door */
+        .kaaba-face.front .kaaba-door {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 48px;
+            height: 82px;
+            background: linear-gradient(180deg, #c9a84c 0%, #e8c860 30%, #d4a84b 50%, #b8943a 70%, #8b6914 100%);
+            border-radius: 24px 24px 6px 6px;
+            box-shadow: 0 0 25px rgba(212, 168, 75, 0.7), 0 0 50px rgba(212, 168, 75, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.2);
+            z-index: 3;
+            border: 2px solid #a07828;
+        }
+        .kaaba-face.front .kaaba-door::after {
+            content: '';
+            position: absolute;
+            inset: 5px 8px;
+            border-radius: 18px 18px 4px 4px;
+            border: 1px solid rgba(139, 105, 20, 0.6);
+            pointer-events: none;
+        }
+        .kaaba-face.front .kaaba-door-lock {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            border: 2px solid #b8943a;
+            z-index: 4;
+        }
+
+        /* Back face */
+        .kaaba-face.back {
+            width: 200px;
+            height: 280px;
+            background: linear-gradient(180deg, #0a0a0a 0%, #0e0e0e 50%, #0b0b0b 100%);
+            transform: rotateY(180deg) translateZ(100px);
+            border-radius: 2px;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8);
+        }
+        .kaaba-face.back .gold-band {
+            position: absolute;
+            top: 35px;
+            left: -2px;
+            right: -2px;
+            height: 28px;
+            background: linear-gradient(180deg, #7a5c10 0%, #b8943a 30%, #d4a84b 50%, #b8943a 70%, #7a5c10 100%);
+            box-shadow: 0 0 12px rgba(180, 140, 60, 0.4);
+        }
+
+        /* Right face */
+        .kaaba-face.right {
+            width: 200px;
+            height: 280px;
+            background: linear-gradient(180deg, #0c0c0c 0%, #101010 40%, #0b0b0b 70%, #0f0f0f 100%);
+            transform: rotateY(90deg) translateZ(100px);
+            border-radius: 2px;
+            box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.75), inset -10px 0 20px rgba(0, 0, 0, 0.3);
+        }
+        .kaaba-face.right .gold-band {
+            position: absolute;
+            top: 35px;
+            left: -2px;
+            right: -2px;
+            height: 28px;
+            background: linear-gradient(180deg, #7a5c10 0%, #c9a84c 35%, #d4a84b 50%, #c9a84c 65%, #7a5c10 100%);
+            box-shadow: 0 0 10px rgba(200, 160, 70, 0.35);
+        }
+
+        /* Left face */
+        .kaaba-face.left {
+            width: 200px;
+            height: 280px;
+            background: linear-gradient(180deg, #0b0b0b 0%, #0f0f0f 50%, #0c0c0c 100%);
+            transform: rotateY(-90deg) translateZ(100px);
+            border-radius: 2px;
+            box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.75), inset 10px 0 20px rgba(0, 0, 0, 0.3);
+        }
+        .kaaba-face.left .gold-band {
+            position: absolute;
+            top: 35px;
+            left: -2px;
+            right: -2px;
+            height: 28px;
+            background: linear-gradient(180deg, #7a5c10 0%, #c9a84c 35%, #d4a84b 50%, #c9a84c 65%, #7a5c10 100%);
+            box-shadow: 0 0 10px rgba(200, 160, 70, 0.35);
+        }
+
+        /* Top face */
+        .kaaba-face.top {
+            width: 200px;
+            height: 200px;
+            background: #080808;
+            transform: rotateX(90deg) translateZ(100px);
+            border-radius: 2px;
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.9);
+        }
+
+        /* Kaaba Glow */
+        .kaaba-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 360px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse, rgba(212, 168, 75, 0.2) 0%, rgba(212, 168, 75, 0.06) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+        @keyframes glowPulse {
+            0%,
+            100% {
+                opacity: 0.7;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        /* Marble Floor */
+        .marble-floor {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 700px;
+            height: 30%;
+            background: linear-gradient(180deg,
+                    rgba(30, 30, 40, 0.95) 0%,
+                    rgba(40, 40, 50, 0.9) 20%,
+                    rgba(35, 35, 45, 0.85) 40%,
+                    rgba(45, 45, 55, 0.8) 60%,
+                    rgba(30, 30, 40, 0.9) 100%);
+            border-radius: 8px 8px 0 0;
+            z-index: 2;
+            pointer-events: none;
+            box-shadow: 0 -5px 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        .marble-floor::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 18px,
+                    rgba(255, 255, 255, 0.03) 18px,
+                    rgba(255, 255, 255, 0.03) 19px),
+                repeating-linear-gradient(90deg,
+                    transparent,
+                    transparent 60px,
+                    rgba(255, 255, 255, 0.02) 60px,
+                    rgba(255, 255, 255, 0.02) 61px);
+            pointer-events: none;
+        }
+        .marble-floor::after {
+            content: '';
+            position: absolute;
+            top: 5%;
+            left: 30%;
+            width: 40%;
+            height: 60%;
+            background: radial-gradient(ellipse at center,
+                    rgba(212, 168, 75, 0.15) 0%,
+                    rgba(212, 168, 75, 0.04) 30%,
+                    transparent 70%);
+            border-radius: 50%;
+            filter: blur(20px);
+            pointer-events: none;
+        }
+
+        /* Light Rays */
+        .light-rays {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 400px;
+            background: conic-gradient(from 180deg at 50% 30%,
+                    transparent 0deg,
+                    rgba(212, 168, 75, 0.08) 5deg,
+                    transparent 15deg,
+                    rgba(212, 168, 75, 0.05) 20deg,
+                    transparent 30deg,
+                    rgba(212, 168, 75, 0.07) 40deg,
+                    transparent 50deg);
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(15px);
+            animation: rayRotate 20s linear infinite;
+        }
+        @keyframes rayRotate {
+            0% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            100% {
+                transform: translateX(-50%) rotate(360deg);
+            }
+        }
+
+        /* ============ DUA OVERLAY ============ */
+        .dua-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .dua-overlay.visible {
+            opacity: 1;
+        }
+        .dua-text {
+            text-align: center;
+            color: var(--gold-light);
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            letter-spacing: 0.06em;
+            line-height: 2;
+            text-shadow: 0 0 30px rgba(212, 168, 75, 0.8), 0 0 60px rgba(212, 168, 75, 0.4);
+            background: rgba(0, 0, 0, 0.55);
+            padding: 30px 40px;
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 168, 75, 0.25);
+            animation: duaReveal 0.7s ease-out forwards;
+            max-width: 90vw;
+        }
+        .dua-line {
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: lineReveal 0.6s ease-out forwards;
+        }
+        .dua-line:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        .dua-line:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        .dua-line:nth-child(3) {
+            animation-delay: 0.7s;
+        }
+        .dua-line:nth-child(4) {
+            animation-delay: 1s;
+        }
+        .dua-line:nth-child(5) {
+            animation-delay: 1.3s;
+        }
+        @keyframes lineReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes duaReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ============ EID MUBARAK TEXT ============ */
+        .eid-text-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+        .eid-text-overlay.visible {
+            opacity: 1;
+        }
+        .eid-main-text {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: bold;
+            color: var(--gold-light);
+            text-shadow:
+                0 0 40px rgba(212, 168, 75, 0.9),
+                0 0 80px rgba(212, 168, 75, 0.6),
+                0 0 120px rgba(212, 168, 75, 0.4),
+                0 0 200px rgba(240, 215, 140, 0.3);
+            letter-spacing: 0.08em;
+            animation: eidShimmer 2s ease-in-out infinite;
+            text-align: center;
+            z-index: 10;
+        }
+        @keyframes eidShimmer {
+            0%,
+            100% {
+                text-shadow: 0 0 40px rgba(212, 168, 75, 0.9), 0 0 80px rgba(212, 168, 75, 0.6), 0 0 120px rgba(212, 168, 75, 0.4);
+            }
+            50% {
+                text-shadow: 0 0 60px rgba(240, 215, 140, 1), 0 0 100px rgba(212, 168, 75, 0.8), 0 0 160px rgba(212, 168, 75, 0.6), 0 0 240px rgba(240, 215,
+                        140, 0.5);
+            }
+        }
+        .eid-sub-text {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--warm-white);
+            margin-top: 20px;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            animation: subFadeIn 1.5s ease-out 1.5s forwards;
+            text-shadow: 0 0 20px rgba(250, 243, 224, 0.6);
+            z-index: 10;
+        }
+        @keyframes subFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            100% {
+                opacity: 0.9;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============ BUTTONS ============ */
+        .sound-toggle,
+        .replay-btn {
+            position: fixed;
+            z-index: 20;
+            background: rgba(20, 20, 30, 0.7);
+            border: 1px solid rgba(212, 168, 75, 0.4);
+            color: var(--gold-light);
+            cursor: pointer;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .sound-toggle {
+            top: 20px;
+            right: 20px;
+        }
+        .sound-toggle:hover,
+        .replay-btn:hover {
+            background: rgba(40, 40, 55, 0.85);
+            border-color: rgba(212, 168, 75, 0.7);
+            box-shadow: 0 0 20px rgba(212, 168, 75, 0.3);
+            transform: scale(1.08);
+        }
+        .replay-btn {
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 25px;
+            width: auto;
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease, transform 0.3s ease, background 0.3s ease;
+        }
+        .replay-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .replay-btn:hover {
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .kaaba-scene {
+                width: 240px;
+                height: 320px;
+                perspective: 650px;
+            }
+            .kaaba-face.front,
+            .kaaba-face.back,
+            .kaaba-face.right,
+            .kaaba-face.left {
+                width: 150px;
+                height: 210px;
+            }
+            .kaaba-face.top {
+                width: 150px;
+                height: 150px;
+            }
+            .kaaba-face.front {
+                transform: translateZ(75px);
+            }
+            .kaaba-face.back {
+                transform: rotateY(180deg) translateZ(75px);
+            }
+            .kaaba-face.right {
+                transform: rotateY(90deg) translateZ(75px);
+            }
+            .kaaba-face.left {
+                transform: rotateY(-90deg) translateZ(75px);
+            }
+            .kaaba-face.top {
+                transform: rotateX(90deg) translateZ(75px);
+            }
+            .kaaba-face.front .gold-band,
+            .kaaba-face.back .gold-band,
+            .kaaba-face.right .gold-band,
+            .kaaba-face.left .gold-band {
+                top: 26px;
+                height: 22px;
+            }
+            .kaaba-face.front .kaaba-door {
+                width: 36px;
+                height: 62px;
+                bottom: 44px;
+                border-radius: 18px 18px 5px 5px;
+            }
+            .kaaba-face.front .kaaba-door-lock {
+                bottom: 20px;
+                width: 6px;
+                height: 6px;
+            }
+            .kaaba-glow {
+                width: 210px;
+                height: 280px;
+            }
+            .goat-button {
+                width: 120px;
+                height: 130px;
+            }
+            .crescent-moon {
+                width: 60px;
+                height: 60px;
+                box-shadow: 12px -9px 0 0 #f5e6c8;
+                top: 6%;
+                right: 8%;
+            }
+            .crescent-moon::after {
+                width: 95px;
+                height: 95px;
+                top: -18px;
+                left: -18px;
+            }
+            .dua-text {
+                padding: 20px 24px;
+                font-size: 1rem;
+            }
+            .intro-title {
+                font-size: 1rem;
+                bottom: 12%;
+            }
+        }
+        @media (max-width: 400px) {
+            .kaaba-scene {
+                width: 180px;
+                height: 250px;
+                perspective: 500px;
+            }
+            .kaaba-face.front,
+            .kaaba-face.back,
+            .kaaba-face.right,
+            .kaaba-face.left {
+                width: 115px;
+                height: 160px;
+            }
+            .kaaba-face.top {
+                width: 115px;
+                height: 115px;
+            }
+            .kaaba-face.front {
+                transform: translateZ(57px);
+            }
+            .kaaba-face.back {
+                transform: rotateY(180deg) translateZ(57px);
+            }
+            .kaaba-face.right {
+                transform: rotateY(90deg) translateZ(57px);
+            }
+            .kaaba-face.left {
+                transform: rotateY(-90deg) translateZ(57px);
+            }
+            .kaaba-face.top {
+                transform: rotateX(90deg) translateZ(57px);
+            }
+            .kaaba-face.front .gold-band {
+                top: 20px;
+                height: 17px;
+            }
+            .kaaba-face.front .kaaba-door {
+                width: 28px;
+                height: 48px;
+                bottom: 34px;
+                border-radius: 14px 14px 4px 4px;
+            }
+            .kaaba-face.front .kaaba-door-lock {
+                bottom: 16px;
+                width: 5px;
+                height: 5px;
+            }
+            .kaaba-glow {
+                width: 160px;
+                height: 210px;
+            }
+            .goat-button {
+                width: 100px;
+                height: 110px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container" id="mainContainer">
+        <!-- Star Canvas -->
+        <canvas id="starCanvas"></canvas>
+        <!-- Particle Canvas -->
+        <canvas id="particleCanvas"></canvas>
+        <!-- Firework Canvas -->
+        <canvas id="fireworkCanvas"></canvas>
+
+        <!-- ============ PAGE 1 - GOAT INTRO ============ -->
+        <div class="page-1" id="page1">
+            <!-- Crescent Moon -->
+            <div class="crescent-moon"></div>
+            <!-- Floating Clouds -->
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <!-- Mosque Silhouette -->
+            <div class="mosque-silhouette">
+                <svg viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,200 L0,140 L60,140 L60,90 L100,90 L100,50 L140,50 L140,90 L180,90 L180,140 L240,140 L240,80 L280,80 L280,35 L320,35 L320,80 L360,80 L360,140 L420,140 L420,95 L460,95 L460,140 L520,140 L520,70 L560,70 L560,30 L600,30 L600,70 L640,70 L640,140 L700,140 L700,85 L740,85 L740,140 L800,140 L800,60 L840,60 L840,25 L880,25 L880,60 L920,60 L920,140 L980,140 L980,90 L1020,90 L1020,140 L1080,140 L1080,75 L1120,75 L1120,140 L1180,140 L1180,55 L1220,55 L1220,140 L1280,140 L1280,80 L1320,80 L1320,140 L1380,140 L1380,100 L1440,100 L1440,200 Z" fill="#0a0a14"/>
+                </svg>
+            </div>
+            <!-- Goat Button -->
+            <button class="goat-button" id="goatButton" aria-label="Enter Experience">
+                <div class="goat-aura"></div>
+                <div class="goat-shadow"></div>
+                <svg class="goat-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="bodyGrad" cx="50%" cy="40%" r="55%">
+                            <stop offset="0%" stop-color="#fefefe"/>
+                            <stop offset="60%" stop-color="#f0ebe0"/>
+                            <stop offset="100%" stop-color="#d5cbb8"/>
+                        </radialGradient>
+                        <radialGradient id="headGrad" cx="45%" cy="35%" r="50%">
+                            <stop offset="0%" stop-color="#ffffff"/>
+                            <stop offset="70%" stop-color="#f5f0e8"/>
+                            <stop offset="100%" stop-color="#e0d5c0"/>
+                        </radialGradient>
+                        <filter id="softShadow">
+                            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.3"/>
+                        </filter>
+                        <filter id="glowFilter">
+                            <feGaussianBlur stdDeviation="3" result="blur"/>
+                            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+                    <!-- Body -->
+                    <ellipse cx="100" cy="130" rx="55" ry="42" fill="url(#bodyGrad)" filter="url(#softShadow)"/>
+                    <!-- Fluffy texture on body -->
+                    <ellipse cx="100" cy="130" rx="55" ry="42" fill="none" stroke="rgba(200,185,160,0.2)" stroke-width="8" stroke-dasharray="3,12" stroke-linecap="round"/>
+                    <!-- Head -->
+                    <ellipse cx="100" cy="68" rx="38" ry="36" fill="url(#headGrad)" filter="url(#softShadow)"/>
+                    <!-- Ears -->
+                    <ellipse cx="66" cy="40" rx="12" ry="22" fill="#f0ebe0" transform="rotate(-20,66,40)" stroke="rgba(180,160,140,0.3)" stroke-width="1"/>
+                    <ellipse cx="66" cy="40" rx="7" ry="14" fill="#faf5f0" transform="rotate(-20,66,40)"/>
+                    <ellipse cx="134" cy="40" rx="12" ry="22" fill="#f0ebe0" transform="rotate(20,134,40)" stroke="rgba(180,160,140,0.3)" stroke-width="1"/>
+                    <ellipse cx="134" cy="40" rx="7" ry="14" fill="#faf5f0" transform="rotate(20,134,40)"/>
+                    <!-- Horns -->
+                    <path d="M88,45 Q82,20 92,16" stroke="#c4a882" stroke-width="5" fill="none" stroke-linecap="round"/>
+                    <path d="M112,45 Q118,20 108,16" stroke="#c4a882" stroke-width="5" fill="none" stroke-linecap="round"/>
+                    <!-- Eyes -->
+                    <ellipse cx="86" cy="64" rx="9" ry="10" fill="#1a1a1a"/>
+                    <ellipse cx="114" cy="64" rx="9" ry="10" fill="#1a1a1a"/>
+                    <ellipse cx="84" cy="61" rx="3.5" ry="3.5" fill="#ffffff"/>
+                    <ellipse cx="112" cy="61" rx="3.5" ry="3.5" fill="#ffffff"/>
+                    <ellipse cx="87" cy="66" rx="1.5" ry="1.5" fill="#ffffff" opacity="0.7"/>
+                    <ellipse cx="115" cy="66" rx="1.5" ry="1.5" fill="#ffffff" opacity="0.7"/>
+                    <!-- Nose -->
+                    <ellipse cx="100" cy="78" rx="7" ry="5" fill="#e8c8c0"/>
+                    <ellipse cx="97" cy="77" rx="2" ry="1.5" fill="#c0a0a0"/>
+                    <ellipse cx="103" cy="77" rx="2" ry="1.5" fill="#c0a0a0"/>
+                    <!-- Mouth -->
+                    <path d="M94,82 Q100,86 106,82" stroke="#c0a0a0" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                    <!-- Legs -->
+                    <rect x="72" y="160" width="14" height="35" rx="7" fill="#e8ddd0" filter="url(#softShadow)"/>
+                    <rect x="114" y="160" width="14" height="35" rx="7" fill="#e8ddd0" filter="url(#softShadow)"/>
+                    <rect x="80" y="162" width="16" height="33" rx="8" fill="#f0ebe0"/>
+                    <rect x="104" y="162" width="16" height="33" rx="8" fill="#f0ebe0"/>
+                    <!-- Hooves -->
+                    <rect x="71" y="190" width="16" height="8" rx="4" fill="#5a4a3a"/>
+                    <rect x="113" y="190" width="16" height="8" rx="4" fill="#5a4a3a"/>
+                    <!-- Tail -->
+                    <path d="M152,118 Q170,105 162,90" stroke="#e0d5c0" stroke-width="6" fill="none" stroke-linecap="round" filter="url(#softShadow)"/>
+                    <circle cx="161" cy="88" r="7" fill="#f0ebe0"/>
+                    <!-- Golden Bell -->
+                    <circle cx="100" cy="108" r="9" fill="url(#bodyGrad)" stroke="#d4a84b" stroke-width="2.5" filter="url(#glowFilter)"/>
+                    <circle cx="100" cy="108" r="6" fill="#f0d78c" opacity="0.5"/>
+                    <circle cx="100" cy="113" r="2.5" fill="#d4a84b"/>
+                    <rect x="96" y="96" width="8" height="6" rx="3" fill="#d4a84b"/>
+                </svg>
+            </button>
+            <p class="intro-title">✨ Tap the Goat for a Blessing ✨</p>
+        </div>
+
+        <!-- ============ PAGE 2 - KAABA SCENE ============ -->
+        <div class="page-2" id="page2">
+            <div class="light-rays"></div>
+            <div class="kaaba-scene" id="kaabaScene">
+                <div class="kaaba-glow"></div>
+                <div class="kaaba-cube" id="kaabaCube">
+                    <!-- Front Face -->
+                    <div class="kaaba-face front">
+                        <div class="gold-band"></div>
+                        <div class="kaaba-door"></div>
+                        <div class="kaaba-door-lock"></div>
+                    </div>
+                    <!-- Back Face -->
+                    <div class="kaaba-face back">
+                        <div class="gold-band"></div>
+                    </div>
+                    <!-- Right Face -->
+                    <div class="kaaba-face right">
+                        <div class="gold-band"></div>
+                    </div>
+                    <!-- Left Face -->
+                    <div class="kaaba-face left">
+                        <div class="gold-band"></div>
+                    </div>
+                    <!-- Top Face -->
+                    <div class="kaaba-face top"></div>
+                </div>
+            </div>
+            <div class="marble-floor"></div>
+        </div>
+
+        <!-- Dua Overlay -->
+        <div class="dua-overlay" id="duaOverlay">
+            <div class="dua-text" id="duaText">
+                <span class="dua-line">لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ</span>
+                <span class="dua-line">لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ</span>
+                <span class="dua-line">إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ</span>
+                <span class="dua-line">لَا شَرِيكَ لَكَ</span>
+                <span class="dua-line" style="font-size:0.7em;opacity:0.7;margin-top:8px;">— Labbaika Allahumma Labbaik —</span>
+            </div>
+        </div>
+
+        <!-- EID MUBARAK Overlay -->
+        <div class="eid-text-overlay" id="eidOverlay">
+            <div class="eid-main-text">✨ EID MUBARAK ✨</div>
+            <div class="eid-sub-text">May Allah Bless You</div>
+        </div>
+
+        <!-- Sound Toggle -->
+        <button class="sound-toggle" id="soundToggle" title="Toggle Sound">🔊</button>
+        <!-- Replay Button -->
+        <button class="replay-btn" id="replayBtn">🔄 Experience Again</button>
+    </div>
+
+    <script>
+        (function() {
+            // ============ DOM ELEMENTS ============
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
+            const goatButton = document.getElementById('goatButton');
+            const kaabaCube = document.getElementById('kaabaCube');
+            const kaabaScene = document.getElementById('kaabaScene');
+            const duaOverlay = document.getElementById('duaOverlay');
+            const duaText = document.getElementById('duaText');
+            const eidOverlay = document.getElementById('eidOverlay');
+            const soundToggle = document.getElementById('soundToggle');
+            const replayBtn = document.getElementById('replayBtn');
+            const starCanvas = document.getElementById('starCanvas');
+            const particleCanvas = document.getElementById('particleCanvas');
+            const fireworkCanvas = document.getElementById('fireworkCanvas');
+
+            const starCtx = starCanvas.getContext('2d');
+            const particleCtx = particleCanvas.getContext('2d');
+            const fireworkCtx = fireworkCanvas.getContext('2d');
+
+            // ============ STATE ============
+            let currentPage = 1;
+            let isTransitioning = false;
+            let soundEnabled = true;
+            let audioCtx = null;
+            let ambientOscillator = null;
+            let ambientGain = null;
+            let kaabaClicked = false;
+            let duaPlayed = false;
+            let fireworksActive = false;
+            let fireworksParticles = [];
+            let textFormationParticles = [];
+            let textFormationActive = false;
+            let formationComplete = false;
+
+            // ============ CANVAS SETUP ============
+            function resizeCanvases() {
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+                [starCanvas, particleCanvas, fireworkCanvas].forEach(c => {
+                    c.width = w;
+                    c.height = h;
+                });
+            }
+            resizeCanvases();
+            window.addEventListener('resize', resizeCanvases);
+
+            // ============ AUDIO SYSTEM ============
+            function initAudioContext() {
+                if (!audioCtx) {
+                    audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+            }
+
+            function startAmbientSound() {
+                if (!soundEnabled || !audioCtx) return;
+                stopAmbientSound();
+                ambientGain = audioCtx.createGain();
+                ambientGain.gain.value = 0.04;
+                ambientGain.connect(audioCtx.destination);
+                ambientOscillator = audioCtx.createOscillator();
+                ambientOscillator.type = 'sine';
+                ambientOscillator.frequency.value = 55;
+                ambientOscillator.connect(ambientGain);
+                const lfo = audioCtx.createOscillator();
+                const lfoGain = audioCtx.createGain();
+                lfo.frequency.value = 0.15;
+                lfoGain.gain.value = 8;
+                lfo.connect(lfoGain);
+                lfoGain.connect(ambientOscillator.frequency);
+                lfo.start();
+                ambientOscillator.start();
+                ambientGain.gain.setTargetAtTime(0.04, audioCtx.currentTime, 2);
+            }
+
+            function stopAmbientSound() {
+                if (ambientOscillator) {
+                    try { ambientOscillator.stop(); } catch (e) {}
+                    ambientOscillator = null;
+                }
+                if (ambientGain) {
+                    ambientGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
+                    ambientGain = null;
+                }
+            }
+
+            function playSparkleSound() {
+                if (!soundEnabled || !audioCtx) return;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = 800 + Math.random() * 600;
+                gain.gain.value = 0.03;
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.3);
+            }
+
+            function playFireworkBurstSound() {
+                if (!soundEnabled || !audioCtx) return;
+                const bufferSize = audioCtx.sampleRate * 0.4;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.08));
+                }
+                const source = audioCtx.createBufferSource();
+                source.buffer = buffer;
+                const gain = audioCtx.createGain();
+                gain.gain.value = 0.06;
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.value = 400 + Math.random() * 800;
+                filter.Q.value = 0.5;
+                source.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+                source.start();
+            }
+
+            function speakDua() {
+                if (!soundEnabled) return;
+                initAudioContext();
+                const duaArabic =
+                    'لبيك اللهم لبيك، لبيك لا شريك لك لبيك، إن الحمد والنعمة لك والملك، لا شريك لك';
+                const utterance = new SpeechSynthesisUtterance(duaArabic);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.55;
+                utterance.pitch = 0.85;
+                utterance.volume = 0.9;
+                const voices = speechSynthesis.getVoices();
+                const arabicVoice = voices.find(v => v.lang.includes('ar'));
+                if (arabicVoice) utterance.voice = arabicVoice;
+                speechSynthesis.cancel();
+                setTimeout(() => {
+                    speechSynthesis.speak(utterance);
+                }, 300);
+            }
+
+            function toggleSound() {
+                soundEnabled = !soundEnabled;
+                soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
+                if (!soundEnabled) {
+                    stopAmbientSound();
+                    speechSynthesis.cancel();
+                } else {
+                    if (currentPage === 2) startAmbientSound();
+                }
+            }
+            soundToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                initAudioContext();
+                toggleSound();
+            });
+
+            // Preload voices
+            speechSynthesis.getVoices();
+            speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
+
+            // ============ STAR CANVAS (Page 1 Background) ============
+            const stars = [];
+            const shootingStars = [];
+
+            function createStars() {
+                stars.length = 0;
+                const count = Math.floor((starCanvas.width * starCanvas.height) / 350);
+                for (let i = 0; i < count; i++) {
+                    stars.push({
+                        x: Math.random() * starCanvas.width,
+                        y: Math.random() * starCanvas.height,
+                        radius: Math.random() * 1.8 + 0.3,
+                        twinkleSpeed: Math.random() * 0.02 + 0.005,
+                        twinkleOffset: Math.random() * Math.PI * 2,
+                        baseOpacity: Math.random() * 0.7 + 0.3,
+                    });
+                }
+            }
+            createStars();
+
+            function spawnShootingStar() {
+                if (Math.random() < 0.003 && shootingStars.length < 2) {
+                    shootingStars.push({
+                        x: Math.random() * starCanvas.width * 0.8,
+                        y: Math.random() * starCanvas.height * 0.4,
+                        vx: 4 + Math.random() * 6,
+                        vy: 1.5 + Math.random() * 3,
+                        life: 1,
+                        decay: 0.015 + Math.random() * 0.025,
+                        length: 40 + Math.random() * 60,
+                    });
+                }
+            }
+
+            function updateShootingStars() {
+                for (let i = shootingStars.length - 1; i >= 0; i--) {
+                    const s = shootingStars[i];
+                    s.x += s.vx;
+                    s.y += s.vy;
+                    s.life -= s.decay;
+                    if (s.life <= 0 || s.x > starCanvas.width + 100 || s.y > starCanvas.height + 100) {
+                        shootingStars.splice(i, 1);
+                    }
+                }
+            }
+
+            function drawStars(time) {
+                starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+                stars.forEach(s => {
+                    const opacity = s.baseOpacity + Math.sin(time * s.twinkleSpeed + s.twinkleOffset) * 0.3;
+                    const alpha = Math.max(0.15, Math.min(1, opacity));
+                    starCtx.beginPath();
+                    starCtx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                    starCtx.fillStyle = `rgba(255,255,240,${alpha})`;
+                    starCtx.fill();
+                    if (s.radius > 1.2 && alpha > 0.7) {
+                        starCtx.beginPath();
+                        starCtx.arc(s.x, s.y, s.radius * 2.5, 0, Math.PI * 2);
+                        starCtx.fillStyle = `rgba(255,255,240,${alpha*0.12})`;
+                        starCtx.fill();
+                    }
+                });
+                shootingStars.forEach(s => {
+                    const grad = starCtx.createLinearGradient(s.x, s.y, s.x - s.length, s.y - s.length *
+                        0.5);
+                    grad.addColorStop(0, `rgba(255,255,255,${s.life})`);
+                    grad.addColorStop(1, 'rgba(255,255,255,0)');
+                    starCtx.beginPath();
+                    starCtx.moveTo(s.x, s.y);
+                    starCtx.lineTo(s.x - s.length, s.y - s.length * 0.5);
+                    starCtx.strokeStyle = grad;
+                    starCtx.lineWidth = 1.5;
+                    starCtx.stroke();
+                });
+            }
+
+            // ============ PARTICLE CANVAS (Page 2 Atmosphere) ============
+            const atmosphereParticles = [];
+
+            function createAtmosphereParticles() {
+                atmosphereParticles.length = 0;
+                const count = 60;
+                for (let i = 0; i < count; i++) {
+                    atmosphereParticles.push({
+                        x: Math.random() * particleCanvas.width,
+                        y: particleCanvas.height + Math.random() * 100,
+                        radius: Math.random() * 2.5 + 0.8,
+                        speedY: 0.2 + Math.random() * 0.6,
+                        speedX: (Math.random() - 0.5) * 0.3,
+                        opacity: Math.random() * 0.5 + 0.2,
+                        wobbleAmp: Math.random() * 30,
+                        wobbleSpeed: Math.random() * 0.01 + 0.005,
+                        wobbleOffset: Math.random() * Math.PI * 2,
+                        color: Math.random() < 0.5 ? 'rgba(212,168,75,COLOR_OPACITY)' :
+                            'rgba(240,215,140,COLOR_OPACITY)',
+                    });
+                }
+            }
+            createAtmosphereParticles();
+
+            function updateAtmosphereParticles(time) {
+                atmosphereParticles.forEach(p => {
+                    p.y -= p.speedY;
+                    p.x += p.speedX + Math.sin(time * p.wobbleSpeed + p.wobbleOffset) * 0.15;
+                    if (p.y < -20) {
+                        p.y = particleCanvas.height + 30;
+                        p.x = Math.random() * particleCanvas.width;
+                    }
+                    if (p.x < -20) p.x = particleCanvas.width + 20;
+                    if (p.x > particleCanvas.width + 20) p.x = -20;
+                });
+            }
+
+            function drawAtmosphereParticles(time) {
+                particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+                if (currentPage !== 2 && !isTransitioning) return;
+                const alpha = currentPage === 2 ? 1 : 0;
+                atmosphereParticles.forEach(p => {
+                    const flicker = 0.7 + Math.sin(time * 0.03 + p.wobbleOffset) * 0.3;
+                    const op = p.opacity * flicker * alpha;
+                    const colorStr = p.color.replace('COLOR_OPACITY', op.toFixed(3));
+                    particleCtx.beginPath();
+                    particleCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    particleCtx.fillStyle = colorStr;
+                    particleCtx.fill();
+                    particleCtx.beginPath();
+                    particleCtx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
+                    particleCtx.fillStyle = colorStr.replace(op.toFixed(3), (op * 0.2).toFixed(3));
+                    particleCtx.fill();
+                });
+            }
+
+            // ============ FIREWORK SYSTEM ============
+            function launchFirework() {
+                const cx = fireworkCanvas.width * (0.2 + Math.random() * 0.6);
+                const cy = fireworkCanvas.height * (0.15 + Math.random() * 0.4);
+                const colors = [
+                    { r: 212, g: 168, b: 75 }, // Gold
+                    { r: 240, g: 215, b: 140 }, // Light gold
+                    { r: 255, g: 255, b: 240 }, // White
+                    { r: 80, g: 200, b: 120 }, // Emerald
+                    { r: 100, g: 210, b: 140 }, // Light emerald
+                    { r: 250, g: 243, b: 224 }, // Warm white
+                ];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const count = 80 + Math.floor(Math.random() * 100);
+                const particles = [];
+                for (let i = 0; i < count; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 1.5 + Math.random() * 7;
+                    const type = Math.random();
+                    let vx, vy, life, decay;
+                    if (type < 0.6) {
+                        vx = Math.cos(angle) * speed;
+                        vy = Math.sin(angle) * speed;
+                        life = 1;
+                        decay = 0.008 + Math.random() * 0.02;
+                    } else if (type < 0.85) {
+                        vx = Math.cos(angle) * speed * 1.5;
+                        vy = Math.sin(angle) * speed * 1.5 - 2;
+                        life = 1;
+                        decay = 0.015 + Math.random() * 0.025;
+                    } else {
+                        vx = Math.cos(angle) * speed * 0.5;
+                        vy = Math.sin(angle) * speed * 0.5;
+                        life = 1;
+                        decay = 0.004 + Math.random() * 0.01;
+                    }
+                    particles.push({
+                        x: cx,
+                        y: cy,
+                        vx,
+                        vy,
+                        life,
+                        decay,
+                        color,
+                        radius: 1 + Math.random() * 2.5,
+                        trail: [],
+                    });
+                }
+                fireworksParticles.push(...particles);
+                playFireworkBurstSound();
+            }
+
+            function updateFireworks() {
+                for (let i = fireworksParticles.length - 1; i >= 0; i--) {
+                    const p = fireworksParticles[i];
+                    p.trail.push({ x: p.x, y: p.y, life: p.life });
+                    if (p.trail.length > 12) p.trail.shift();
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.04;
+                    p.life -= p.decay;
+                    if (p.life <= 0) {
+                        fireworksParticles.splice(i, 1);
+                    }
+                }
+            }
+
+            function drawFireworks() {
+                fireworkCtx.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
+                fireworksParticles.forEach(p => {
+                    p.trail.forEach((t, idx) => {
+                        const alpha = (t.life * (idx / p.trail.length)) * 0.6;
+                        fireworkCtx.beginPath();
+                        fireworkCtx.arc(t.x, t.y, p.radius * 0.5, 0, Math.PI * 2);
+                        fireworkCtx.fillStyle =
+                            `rgba(${p.color.r},${p.color.g},${p.color.b},${alpha.toFixed(3)})`;
+                        fireworkCtx.fill();
+                    });
+                    fireworkCtx.beginPath();
+                    fireworkCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    fireworkCtx.fillStyle =
+                        `rgba(${p.color.r},${p.color.g},${p.color.b},${p.life.toFixed(3)})`;
+                    fireworkCtx.fill();
+                    fireworkCtx.beginPath();
+                    fireworkCtx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
+                    fireworkCtx.fillStyle =
+                        `rgba(${p.color.r},${p.color.g},${p.color.b},${(p.life*0.2).toFixed(3)})`;
+                    fireworkCtx.fill();
+                });
+            }
+
+            // ============ TEXT FORMATION PARTICLES ============
+            function createTextFormationParticles(text, targetY) {
+                const offCanvas = document.createElement('canvas');
+                offCanvas.width = fireworkCanvas.width;
+                offCanvas.height = fireworkCanvas.height;
+                const offCtx = offCanvas.getContext('2d');
+                const fontSize = Math.min(fireworkCanvas.width / 6, 90);
+                offCtx.fillStyle = 'white';
+                offCtx.font = `bold ${fontSize}px Georgia, "Times New Roman", serif`;
+                offCtx.textAlign = 'center';
+                offCtx.fillText(text, offCanvas.width / 2, targetY);
+                const imageData = offCtx.getImageData(0, 0, offCanvas.width, offCanvas.height);
+                const pixels = [];
+                const step = 3;
+                for (let y = 0; y < offCanvas.height; y += step) {
+                    for (let x = 0; x < offCanvas.width; x += step) {
+                        const idx = (y * offCanvas.width + x) * 4;
+                        if (imageData.data[idx + 3] > 100) {
+                            pixels.push({ tx: x, ty: y });
+                        }
+                    }
+                }
+                const sampledPixels = [];
+                const sampleRate = Math.max(1, Math.floor(pixels.length / 350));
+                for (let i = 0; i < pixels.length; i += sampleRate) {
+                    sampledPixels.push(pixels[i]);
+                }
+                textFormationParticles = sampledPixels.map(p => ({
+                    x: Math.random() * fireworkCanvas.width,
+                    y: fireworkCanvas.height + Math.random() * 300,
+                    tx: p.tx,
+                    ty: p.ty,
+                    speed: 0.015 + Math.random() * 0.04,
+                    radius: 1.5 + Math.random() * 3,
+                    color: Math.random() < 0.4 ?
+                        { r: 212, g: 168, b: 75 } :
+                        Math.random() < 0.5 ?
+                        { r: 240, g: 215, b: 140 } :
+                        { r: 255, g: 255, b: 240 },
+                    settled: false,
+                }));
+                textFormationActive = true;
+                formationComplete = false;
+            }
+
+            function updateTextFormation() {
+                if (!textFormationActive) return;
+                let allSettled = true;
+                textFormationParticles.forEach(p => {
+                    if (p.settled) return;
+                    const dx = p.tx - p.x;
+                    const dy = p.ty - p.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 2) {
+                        p.x = p.tx;
+                        p.y = p.ty;
+                        p.settled = true;
+                    } else {
+                        p.x += dx * p.speed;
+                        p.y += dy * p.speed;
+                        allSettled = false;
+                    }
+                });
+                if (allSettled && textFormationParticles.length > 0 && !formationComplete) {
+                    formationComplete = true;
+                    setTimeout(() => {
+                        eidOverlay.classList.add('visible');
+                    }, 400);
+                }
+            }
+
+            function drawTextFormation() {
+                if (!textFormationActive) return;
+                textFormationParticles.forEach(p => {
+                    const alpha = p.settled ? 0.9 : 0.6;
+                    fireworkCtx.beginPath();
+                    fireworkCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    fireworkCtx.fillStyle =
+                        `rgba(${p.color.r},${p.color.g},${p.color.b},${alpha})`;
+                    fireworkCtx.fill();
+                    fireworkCtx.beginPath();
+                    fireworkCtx.arc(p.x, p.y, p.radius * 2.5, 0, Math.PI * 2);
+                    fireworkCtx.fillStyle =
+                        `rgba(${p.color.r},${p.color.g},${p.color.b},${alpha*0.25})`;
+                    fireworkCtx.fill();
+                });
+            }
+
+            // ============ PAGE TRANSITION ============
+            function transitionToKaaba() {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                initAudioContext();
+                startAmbientSound();
+                page1.classList.add('transitioning-out');
+                playSparkleSound();
+                setTimeout(() => {
+                    page1.classList.add('hidden');
+                    page2.classList.add('active');
+                    createAtmosphereParticles();
+                    setTimeout(() => {
+                        isTransitioning = false;
+                        currentPage = 2;
+                    }, 300);
+                }, 700);
+            }
+
+            // ============ GOAT CLICK ============
+            goatButton.addEventListener('click', (e) => {
+                if (isTransitioning || currentPage !== 1) return;
+                initAudioContext();
+                playSparkleSound();
+                // Create sparkle burst
+                const rect = goatButton.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                for (let i = 0; i < 20; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle-burst';
+                    sparkle.style.cssText = `
+                        position: fixed;
+                        left: ${cx}px;
+                        top: ${cy}px;
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 50%;
+                        background: ${i%3===0?'#f0d78c':i%3===1?'#ffffff':'#d4a84b'};
+                        --sx: ${(Math.random()-0.5)*200}px;
+                        --sy: ${(Math.random()-0.5)*200}px;
+                        z-index: 30;
+                        pointer-events: none;
+                        animation: sparkleFly 0.8s ease-out forwards;
+                    `;
+                    document.body.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 900);
+                }
+                setTimeout(() => transitionToKaaba(), 200);
+            });
+
+            // ============ KAABA CLICK ============
+            kaabaCube.addEventListener('click', (e) => {
+                if (isTransitioning || currentPage !== 2 || kaabaClicked) return;
+                e.stopPropagation();
+                kaabaClicked = true;
+                initAudioContext();
+                page2.classList.add('darken');
+                kaabaCube.style.transform = kaabaCube.style.transform.replace('scale(1.03)', '') +
+                    ' scale(1.06)';
+                kaabaCube.style.transition = 'transform 2s ease';
+                // Show dua overlay
+                setTimeout(() => {
+                    duaOverlay.classList.add('visible');
+                }, 600);
+                // Speak dua
+                setTimeout(() => {
+                    speakDua();
+                }, 800);
+                // After dua (~10 seconds for recitation), start fireworks
+                setTimeout(() => {
+                    startFireworksShow();
+                }, 11000);
+            });
+
+            function startFireworksShow() {
+                fireworksActive = true;
+                duaOverlay.classList.remove('visible');
+                duaText.style.opacity = '0';
+                duaText.style.transition = 'opacity 0.8s ease';
+                // Intense fireworks for 5 seconds
+                const fireworkInterval = setInterval(() => {
+                    if (!fireworksActive) {
+                        clearInterval(fireworkInterval);
+                        return;
+                    }
+                    launchFirework();
+                    if (Math.random() < 0.5) setTimeout(() => launchFirework(), 150);
+                }, 400);
+                // After 5 seconds, slow down and form text
+                setTimeout(() => {
+                    clearInterval(fireworkInterval);
+                    // Let remaining fireworks fade
+                    setTimeout(() => {
+                        fireworksParticles.length = 0;
+                        fireworkCtx.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
+                        createTextFormationParticles('EID MUBARAK', fireworkCanvas.height * 0.42);
+                        fireworksActive = false;
+                    }, 1500);
+                }, 5000);
+            }
+
+            // ============ REPLAY ============
+            replayBtn.addEventListener('click', () => {
+                resetExperience();
+            });
+
+            function resetExperience() {
+                speechSynthesis.cancel();
+                stopAmbientSound();
+                fireworksActive = false;
+                fireworksParticles.length = 0;
+                textFormationParticles.length = 0;
+                textFormationActive = false;
+                formationComplete = false;
+                kaabaClicked = false;
+                duaPlayed = false;
+                currentPage = 1;
+                isTransitioning = false;
+                page1.classList.remove('hidden', 'transitioning-out');
+                page2.classList.remove('active', 'darken');
+                duaOverlay.classList.remove('visible');
+                eidOverlay.classList.remove('visible');
+                duaText.style.opacity = '1';
+                duaText.style.transition = '';
+                kaabaCube.style.transform = '';
+                kaabaCube.style.transition = 'transform 0.6s ease';
+                replayBtn.classList.remove('visible');
+                fireworkCtx.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
+                particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+                createStars();
+                createAtmosphereParticles();
+                document.querySelectorAll('.sparkle-burst').forEach(el => el.remove());
+            }
+
+            // ============ MOUSE PARALLAX (Page 1) ============
+            document.addEventListener('mousemove', (e) => {
+                if (currentPage === 1 && !isTransitioning) {
+                    const mx = (e.clientX / window.innerWidth - 0.5) * 20;
+                    const my = (e.clientY / window.innerHeight - 0.5) * 15;
+                    page1.style.transform = `translate(${mx*0.5}px,${my*0.5}px)`;
+                    const moon = document.querySelector('.crescent-moon');
+                    if (moon) moon.style.transform = `translate(${mx*0.3}px,${my*0.3}px)`;
+                }
+                if (currentPage === 2 && !kaabaClicked) {
+                    const mx = (e.clientX / window.innerWidth - 0.5) * 6;
+                    const my = (e.clientY / window.innerHeight - 0.5) * 4;
+                    kaabaScene.style.transform = `translate(${mx}px,${my}px)`;
+                }
+            });
+
+            // ============ MAIN ANIMATION LOOP ============
+            let lastTime = performance.now();
+
+            function animate(time) {
+                const dt = Math.min((time - lastTime) / 1000, 0.1);
+                lastTime = time;
+
+                // Stars
+                if (currentPage === 1 || isTransitioning) {
+                    spawnShootingStar();
+                    updateShootingStars();
+                }
+                drawStars(time);
+
+                // Atmosphere particles
+                if (currentPage === 2) {
+                    updateAtmosphereParticles(time);
+                }
+                drawAtmosphereParticles(time);
+
+                // Fireworks
+                if (fireworksActive) {
+                    updateFireworks();
+                }
+                drawFireworks();
+
+                // Text formation
+                if (textFormationActive) {
+                    updateTextFormation();
+                    drawTextFormation();
+                    if (formationComplete) {
+                        // Show replay button
+                        if (!replayBtn.classList.contains('visible')) {
+                            replayBtn.classList.add('visible');
+                        }
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            // ============ INITIALIZATION ============
+            createStars();
+            createAtmosphereParticles();
+            requestAnimationFrame(animate);
+
+            // Handle window resize for star recreation
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    resizeCanvases();
+                    createStars();
+                    createAtmosphereParticles();
+                    if (textFormationActive && !formationComplete && textFormationParticles.length >
+                        0) {
+                        const targetY = fireworkCanvas.height * 0.42;
+                        createTextFormationParticles('EID MUBARAK', targetY);
+                    }
+                }, 300);
+            });
+
+            // Prevent double-tap zoom on mobile
+            document.addEventListener('dblclick', function(e) {
+                if (e.target.closest('button') || e.target.closest('.kaaba-cube')) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            // Touch handling for mobile
+            document.addEventListener('touchstart', function(e) {
+                if (e.target.closest('button') || e.target.closest('.kaaba-cube') || e.target
+                    .closest('.goat-button')) {
+                    initAudioContext();
+                }
+            }, { passive: true });
+
+            console.log('🌟 Eid al-Adha Cinematic Experience Ready');
+            console.log('🕋 Tap the goat to begin, then click the Kaaba for the dua recitation');
+            console.log('✨ Sound toggle in the top-right corner');
+            console.log('🎆 Experience the full journey: Goat → Kaaba → Dua → Fireworks → Eid Mubarak');
+        })();
+    </script>
+</body>
+</html>
